@@ -15,7 +15,7 @@ class LogoutController extends Controller
         try {
             // Get the token and authenticate the user
             $token = JWTAuth::getToken();
-            $user = JWTAuth::authenticate($token); // Ensure token is valid and retrieve user
+            $user = JWTAuth::authenticate($token);
 
             if (!$user) {
                 return response()->json([
