@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LogoutController;
 use App\Http\Controllers\Api\SellerController;
 use App\Http\Controllers\Api\MajorController;
+use App\Http\Controllers\Api\ServicesController;
+use App\Http\Controllers\Api\ProductController;
+
 
 /**
  * route "/register"
@@ -55,4 +58,18 @@ Route::prefix('majors')->middleware('auth:api')->group(function () {
     Route::post('/', [MajorController::class, 'store']); // Create a new major
     Route::get('/{id}', [MajorController::class, 'show']); // Show a specific major
     Route::delete('/{id}', [MajorController::class, 'destroy']); // Delete a specific major
+});
+
+Route::prefix('services')->middleware('auth:api')->group(function () {
+    Route::get('/', [ServicesController::class, 'index']); // List all services
+    Route::post('/', [ServicesController::class, 'store']); // Create a new service
+    Route::get('/{id}', [ServicesController::class, 'show']); // Show a specific service
+    Route::delete('/{id}', [ServicesController::class, 'destroy']); // Delete a specific service
+});
+
+Route::prefix('products')->middleware('auth:api')->group(function () {
+    Route::get('/', [ProductController::class, 'index']); // List all products
+    Route::post('/', [ProductController::class, 'store']); // Create a new product
+    Route::get('/{id}', [ProductController::class, 'show']); // Show a specific product
+    Route::delete('/{id}', [ProductController::class, 'destroy']); // Delete a specific product
 });
