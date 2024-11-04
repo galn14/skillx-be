@@ -33,7 +33,20 @@ class ProductController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $product = Product::create($request->all());
+
+        // Ambil ID pengguna dan jurusan terkait
+        $user = Auth::user();
+        $idMajor = $user->IdMajor;
+
+        $product = Product::create([
+            'NamaProduct' => $request->NamaProduct,
+            'DeskripsiProduct' => $request->DeskripsiProduct,
+            'FotoProduct' => $request->FotoProduct,
+            'Price' => $request->Price,
+            'IdMajor' => $idMajor,
+            'ServicesId' => $request->ServicesId,
+            'IdSeller' => $user->id, // Gunakan ID pengguna terautentikasi
+        ]);
 
         return response()->json([
             'success' => true,
@@ -62,25 +75,27 @@ class ProductController extends Controller
             'DeskripsiProduct' => 'sometimes|required|string',
             'FotoProduct' => 'nullable|string|max:255',
             'Price' => 'sometimes|required|numeric|min:0',
-            'IdMajor' => 'nullable|exists:majors,IdMajor',
             'ServicesId' => 'sometimes|required|exists:services,IdServices',
-            'IdSeller' => 'sometimes|required|exists:users,id',
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
-        // Retrieve the authenticated user's product
-        $userId = Auth::id();
-        $product = Product::where('IdSeller', $userId)->first();
+        $user = Auth::user();
+        $product = Product::where('IdSeller', $user->id)->first();
 
         if (!$product) {
             return response()->json(['message' => 'Product not found for the authenticated user'], 404);
         }
 
-        // Update the product with the provided data
-        $product->update($request->all());
+        $product->update([
+            'NamaProduct' => $request->NamaProduct ?? $product->NamaProduct,
+            'DeskripsiProduct' => $request->DeskripsiProduct ?? $product->DeskripsiProduct,
+            'FotoProduct' => $request->FotoProduct ?? $product->FotoProduct,
+            'Price' => $request->Price ?? $product->Price,
+            'ServicesId' => $request->ServicesId ?? $product->ServicesId,
+        ]);
 
         return response()->json([
             'success' => true,
@@ -88,13 +103,14 @@ class ProductController extends Controller
             'message' => 'Product updated successfully',
         ], 200);
     }
-    // Delete a specific product
-    public function destroy($id)
+    // Delete a specific product 
+    public function destroy()
     {
-        $product = Product::find($id);
+        $user = Auth::user();
+        $product = Product::where('IdSeller', $user->id)->first();
 
         if (!$product) {
-            return response()->json(['message' => 'Product not found'], 404);
+            return response()->json(['message' => 'Product not found for the authenticated user'], 404);
         }
 
         $product->delete();
