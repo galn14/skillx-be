@@ -42,8 +42,6 @@ Route::post('/logout', [App\Http\Controllers\Api\LogoutController::class, 'logou
  */
 Route::get('/validate-token', [App\Http\Controllers\Api\TokenValidationController::class, 'validateToken']);
 
-
-
 Route::prefix('sellers')->middleware('auth:api')->group(function () {
     Route::get('/profile', [SellerController::class, 'profile']); // Get the authenticated seller's profile
     Route::get('/', [SellerController::class, 'index']); // List all sellers
