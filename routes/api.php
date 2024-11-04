@@ -69,5 +69,6 @@ Route::prefix('products')->middleware('auth:api')->group(function () {
     Route::get('/', [ProductController::class, 'index']); // List all products
     Route::post('/', [ProductController::class, 'store']); // Create a new product
     Route::get('/{id}', [ProductController::class, 'show']); // Show a specific product
+    Route::put('/', [ProductController::class, 'update']); // Update the authenticated user's product
     Route::delete('/{id}', [ProductController::class, 'destroy']); // Delete a specific product
 });

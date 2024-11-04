@@ -12,6 +12,9 @@ class Product extends Model
     protected $table = 'products';
     protected $primaryKey = 'IdProduct';
 
+    const CREATED_AT = 'CreatedAt';
+    const UPDATED_AT = 'UpdatedAt';
+
     protected $fillable = [
         'NamaProduct',
         'DeskripsiProduct',
