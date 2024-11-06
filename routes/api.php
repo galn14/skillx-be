@@ -44,31 +44,31 @@ Route::get('/validate-token', [App\Http\Controllers\Api\TokenValidationControlle
 
 Route::prefix('sellers')->middleware('auth:api')->group(function () {
     Route::get('/profile', [SellerController::class, 'profile']); // Get the authenticated seller's profile
-    Route::get('/', [SellerController::class, 'index']); // List all sellers
-    Route::post('/', [SellerController::class, 'store']); // Create a new seller
+    Route::get('/list', [SellerController::class, 'index']); // List all sellers
+    Route::post('/input', [SellerController::class, 'store']); // Create a new seller
     Route::get('/{id}', [SellerController::class, 'show']); // Show a specific seller
-    Route::put('/{id}', [SellerController::class, 'update']); // Update a specific seller
-    Route::delete('/{id}', [SellerController::class, 'destroy']); // Delete a specific seller
+    Route::put('/update/{id}', [SellerController::class, 'update']); // Update a specific seller
+    Route::delete('/delete/{id}', [SellerController::class, 'destroy']); // Delete a specific seller
 });
 
 Route::prefix('majors')->middleware('auth:api')->group(function () {
-    Route::get('/', [MajorController::class, 'index']); // List all majors
-    Route::post('/', [MajorController::class, 'store']); // Create a new major
+    Route::get('/list', [MajorController::class, 'index']); // List all majors
+    Route::post('/input', [MajorController::class, 'store']); // Create a new major
     Route::get('/{id}', [MajorController::class, 'show']); // Show a specific major
-    Route::delete('/{id}', [MajorController::class, 'destroy']); // Delete a specific major
+    Route::delete('/delete/{id}', [MajorController::class, 'destroy']); // Delete a specific major
 });
 
 Route::prefix('services')->middleware('auth:api')->group(function () {
-    Route::get('/', [ServicesController::class, 'index']); // List all services
-    Route::post('/', [ServicesController::class, 'store']); // Create a new service
+    Route::get('/list', [ServicesController::class, 'index']); // List all services
+    Route::post('/input', [ServicesController::class, 'store']); // Create a new service
     Route::get('/{id}', [ServicesController::class, 'show']); // Show a specific service
-    Route::delete('/{id}', [ServicesController::class, 'destroy']); // Delete a specific service
+    Route::delete('/delete/id}', [ServicesController::class, 'destroy']); // Delete a specific service
 });
 
 Route::prefix('products')->middleware('auth:api')->group(function () {
     Route::get('/list', [ProductController::class, 'index']); // List all products
-    Route::post('/', [ProductController::class, 'store']); // Create a new product
+    Route::post('/input', [ProductController::class, 'store']); // Create a new product
     Route::get('/{id}', [ProductController::class, 'show']); // Show a specific product
     Route::put('/update', [ProductController::class, 'update']); // Update the authenticated user's product
-    Route::delete('/{id}', [ProductController::class, 'destroy']); // Delete a specific product
+    Route::delete('/delete/{id}', [ProductController::class, 'destroy']); // Delete a specific product
 });
