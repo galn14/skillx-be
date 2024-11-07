@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\BuyerController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\FollowingController;
+use App\Http\Controllers\Auth\GoogleController;
 
 
 /**
@@ -139,3 +140,5 @@ Route::prefix('followings')->middleware('auth:api')->group(function () {
     Route::delete('/{id}', [FollowingController::class, 'destroy']); // Unfollow a seller
 });
 
+Route::get('login/google', [GoogleController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('login/google/callback', [GoogleController::class, 'handleGoogleCallback']);
