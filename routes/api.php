@@ -164,3 +164,11 @@ Route::middleware('auth:api')->prefix('notifications')->group(function () {
     Route::post('/add', [NotificationController::class, 'store']);
     Route::delete('/{id}', [NotificationController::class, 'destroy']);
 });
+
+use App\Http\Controllers\Api\MessageController;
+
+Route::middleware('auth:api')->prefix('messages')->group(function () {
+    Route::get('/view', [MessageController::class, 'index']); // Menampilkan pesan yang diterima
+    Route::post('/send', [MessageController::class, 'store']); // Mengirim pesan
+    Route::delete('/{id}', [MessageController::class, 'destroy']); // Menghapus pesan
+});
