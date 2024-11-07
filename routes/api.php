@@ -152,12 +152,15 @@ Route::middleware('auth:api')->prefix('wishlist')->group(function () {
 });
 
 Route::middleware('auth:api')->prefix('keranjang')->group(function () {
-    // Menampilkan semua item keranjang
     Route::get('/view', [KeranjangController::class, 'index']);
-
-    // Menambahkan produk ke keranjang
     Route::post('/add', [KeranjangController::class, 'store']);
-
-    // Menghapus produk dari keranjang
     Route::delete('/{id}', [KeranjangController::class, 'destroy']);
+});
+
+use App\Http\Controllers\Api\NotificationController;
+
+Route::middleware('auth:api')->prefix('notifications')->group(function () {
+    Route::get('/view', [NotificationController::class, 'index']);
+    Route::post('/add', [NotificationController::class, 'store']);
+    Route::delete('/{id}', [NotificationController::class, 'destroy']);
 });
