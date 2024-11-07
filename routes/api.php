@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\ServicesController;
 use App\Http\Controllers\Api\WishlistController;
 use App\Http\Controllers\Api\ComplaintController;
 use App\Http\Controllers\Api\FollowingController;
+use App\Http\Controllers\Api\KeranjangController;
 use App\Http\Controllers\Api\UserSkillController;
 use App\Http\Controllers\Api\PortofolioController;
 use App\Http\Controllers\Api\TransactionController;
@@ -148,4 +149,15 @@ Route::middleware('auth:api')->prefix('wishlist')->group(function () {
     Route::get('/view', [WishlistController::class, 'index']); // Menampilkan wishlist user
     Route::post('/add', [WishlistController::class, 'store']); // Menambah produk ke wishlist
     Route::delete('/{id}', [WishlistController::class, 'destroy']); // Menghapus produk dari wishlist
+});
+
+Route::middleware('auth:api')->prefix('keranjang')->group(function () {
+    // Menampilkan semua item keranjang
+    Route::get('/view', [KeranjangController::class, 'index']);
+
+    // Menambahkan produk ke keranjang
+    Route::post('/add', [KeranjangController::class, 'store']);
+
+    // Menghapus produk dari keranjang
+    Route::delete('/{id}', [KeranjangController::class, 'destroy']);
 });
