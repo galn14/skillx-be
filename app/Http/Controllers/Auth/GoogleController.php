@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserGoogleToken;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log; // Add this line
+use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Hash;
 
@@ -41,6 +42,17 @@ class GoogleController extends Controller
                     'password' => Hash::make(uniqid()), // Generate a secure random password
                 ]);
             }
+
+            // Store or update the Google token
+            UserGoogleToken::updateOrCreate(
+                ['user_id' => $user->id],
+                [
+                    'google_id' => $googleUser->id,
+                    'access_token' => $googleUser->token,
+                    'refresh_token' => $googleUser->refreshToken,
+                    'expires_at' => now()->addSeconds($googleUser->expiresIn),
+                ]
+            );
 
             // Log in the user
             Auth::login($user);
