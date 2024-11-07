@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\SellerController;
 use App\Http\Controllers\Api\MajorController;
 use App\Http\Controllers\Api\ServicesController;
 use App\Http\Controllers\Api\ProductController;
-
+use App\Http\Controllers\Api\ComplaintController;
 
 /**
  * route "/register"
@@ -71,4 +71,12 @@ Route::prefix('products')->middleware('auth:api')->group(function () {
     Route::get('/{id}', [ProductController::class, 'show']); // Show a specific product
     Route::put('/update', [ProductController::class, 'update']); // Update the authenticated user's product
     Route::delete('/delete/{id}', [ProductController::class, 'destroy']); // Delete a specific product
+
+});
+
+Route::prefix('complaints')->middleware(['auth:api'])->group(function () {
+    Route::post('/create', [ComplaintController::class, 'store']);        // Create a complaint
+    Route::get('/view/{id}', [ComplaintController::class, 'show']);      // View a specific complaint
+    Route::put('/update/{id}', [ComplaintController::class, 'update']);    // Update a complaint
+    Route::delete('/delete/{id}', [ComplaintController::class, 'destroy']); // Delete a complaint
 });
