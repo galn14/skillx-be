@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\UserSkillController;
 use App\Http\Controllers\Api\PortofolioController;
 use App\Http\Controllers\Api\BuyerController;
 use App\Http\Controllers\Api\TransactionController;
+use App\Http\Controllers\Api\ReviewController;
 
 
 /**
@@ -124,3 +125,10 @@ Route::prefix('transactions')->middleware('auth:api')->group(function () {
 });
 
 
+Route::prefix('reviews')->middleware('auth:api')->group(function () {
+    Route::get('/', [ReviewController::class, 'index']); // List user's reviews
+    Route::post('/', [ReviewController::class, 'store']); // Create a new review
+    Route::get('/{id}', [ReviewController::class, 'show']); // Show a specific review of the user
+    Route::put('/{id}', [ReviewController::class, 'update']); // Update a review of the user
+    Route::delete('/{id}', [ReviewController::class, 'destroy']); // Delete a review of the user
+});

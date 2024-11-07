@@ -17,6 +17,13 @@ return new class extends Migration {
             $table->unsignedBigInteger('UserId');
             $table->string('TitlePortofolio', 255);
             $table->string('DescriptionPortofolio', 255);
+            $table->string('LinkPortofolio', 255);
+            $table->string('PhotoPortofolio', 255);
+            $table->string('TypePortofolio', 100);
+            $table->string('StatusPortofolio', 100);
+            $table->date('DateCreatedPortofolio');
+            $table->date('DateEndPortofolio')->nullable();
+            $table->boolean('IsPresentPortofolio')->default(false);
             $table->timestamps();
 
             $table->foreign('UserId')
