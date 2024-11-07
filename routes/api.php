@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\PortofolioController;
 use App\Http\Controllers\Api\BuyerController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\ReviewController;
+use App\Http\Controllers\Api\FollowingController;
 
 
 /**
@@ -124,7 +125,6 @@ Route::prefix('transactions')->middleware('auth:api')->group(function () {
     Route::delete('/{id}', [TransactionController::class, 'destroy']); // Delete a transaction of the user
 });
 
-
 Route::prefix('reviews')->middleware('auth:api')->group(function () {
     Route::get('/', [ReviewController::class, 'index']); // List user's reviews
     Route::post('/', [ReviewController::class, 'store']); // Create a new review
@@ -132,3 +132,10 @@ Route::prefix('reviews')->middleware('auth:api')->group(function () {
     Route::put('/{id}', [ReviewController::class, 'update']); // Update a review of the user
     Route::delete('/{id}', [ReviewController::class, 'destroy']); // Delete a review of the user
 });
+
+Route::prefix('followings')->middleware('auth:api')->group(function () {
+    Route::get('/', [FollowingController::class, 'index']); // List followings
+    Route::post('/', [FollowingController::class, 'store']); // Follow a seller (restricted to buyers)
+    Route::delete('/{id}', [FollowingController::class, 'destroy']); // Unfollow a seller
+});
+

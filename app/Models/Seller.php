@@ -27,4 +27,16 @@ class Seller extends Model
         'GraduationYear',
         'GraduationValidUntil',
     ];
+
+    // Define the relationship to followers
+    public function followers()
+    {
+        return $this->hasMany(Following::class, 'IdSeller', 'IdSeller');
+    }
+
+    // Accessor for follower count
+    public function getFollowerCountAttribute()
+    {
+        return $this->followers()->count();
+    }
 }
