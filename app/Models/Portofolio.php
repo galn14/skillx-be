@@ -10,11 +10,18 @@ class Portofolio extends Model
     use HasFactory;
 
     protected $table = 'portofolios';
-
     protected $primaryKey = 'IdPortofolio';
 
     protected $fillable = [
         'UserId',
         'TitlePortofolio',
+        'DescriptionPortofolio',
+        'LinkPortofolio',
+        'PhotoPortofolio',
+        'TypePortofolio',
+        'StatusPortofolio',
+        'DateCreatedPortofolio',
+        'DateEndPortofolio',
+        'IsPresentPortofolio',
     ];
 }
