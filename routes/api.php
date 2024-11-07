@@ -2,20 +2,21 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\LogoutController;
-use App\Http\Controllers\Api\SellerController;
+use App\Http\Controllers\Api\BuyerController;
 use App\Http\Controllers\Api\MajorController;
-use App\Http\Controllers\Api\ServicesController;
-use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\Api\ComplaintController;
 use App\Http\Controllers\Api\SkillController;
+use App\Http\Controllers\Api\LogoutController;
+use App\Http\Controllers\Api\ReviewController;
+use App\Http\Controllers\Api\SellerController;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\Api\ServicesController;
+use App\Http\Controllers\Api\WishlistController;
+use App\Http\Controllers\Api\ComplaintController;
+use App\Http\Controllers\Api\FollowingController;
 use App\Http\Controllers\Api\UserSkillController;
 use App\Http\Controllers\Api\PortofolioController;
-use App\Http\Controllers\Api\BuyerController;
 use App\Http\Controllers\Api\TransactionController;
-use App\Http\Controllers\Api\ReviewController;
-use App\Http\Controllers\Api\FollowingController;
-use App\Http\Controllers\Auth\GoogleController;
 
 
 /**
@@ -142,3 +143,9 @@ Route::prefix('followings')->middleware('auth:api')->group(function () {
 
 Route::get('login/google', [GoogleController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('login/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+Route::middleware('auth:api')->prefix('wishlist')->group(function () {
+    Route::get('/view', [WishlistController::class, 'index']); // Menampilkan wishlist user
+    Route::post('/add', [WishlistController::class, 'store']); // Menambah produk ke wishlist
+    Route::delete('/{id}', [WishlistController::class, 'destroy']); // Menghapus produk dari wishlist
+});
