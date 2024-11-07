@@ -12,6 +12,8 @@ use App\Http\Controllers\Api\SkillController;
 use App\Http\Controllers\Api\UserSkillController;
 use App\Http\Controllers\Api\PortofolioController;
 use App\Http\Controllers\Api\BuyerController;
+use App\Http\Controllers\Api\TransactionController;
+
 
 /**
  * route "/register"
@@ -112,3 +114,13 @@ Route::middleware(['auth:api'])->group(function () {
     Route::put('/buyer', [BuyerController::class, 'update']);          // Update buyer profile
     Route::delete('/buyer', [BuyerController::class, 'destroy']);      // Delete buyer profile
 });
+
+Route::prefix('transactions')->middleware('auth:api')->group(function () {
+    Route::get('/', [TransactionController::class, 'index']); // List user's transactions
+    Route::post('/', [TransactionController::class, 'store']); // Create a transaction for the user
+    Route::get('/{id}', [TransactionController::class, 'show']); // Show a specific transaction of the user
+    Route::put('/{id}', [TransactionController::class, 'update']); // Update a transaction of the user
+    Route::delete('/{id}', [TransactionController::class, 'destroy']); // Delete a transaction of the user
+});
+
+

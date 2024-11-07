@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->id('IdPortofolio');
             $table->unsignedBigInteger('UserId');
             $table->string('TitlePortofolio', 255);
+            $table->string('DescriptionPortofolio', 255);
             $table->timestamps();
 
             $table->foreign('UserId')
