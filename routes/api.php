@@ -8,6 +8,10 @@ use App\Http\Controllers\Api\MajorController;
 use App\Http\Controllers\Api\ServicesController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ComplaintController;
+use App\Http\Controllers\Api\SkillController;
+use App\Http\Controllers\Api\UserSkillController;
+use App\Http\Controllers\Api\PortofolioController;
+use App\Http\Controllers\Api\BuyerController;
 
 /**
  * route "/register"
@@ -79,4 +83,32 @@ Route::prefix('complaints')->middleware(['auth:api'])->group(function () {
     Route::get('/view/{id}', [ComplaintController::class, 'show']);      // View a specific complaint
     Route::put('/update/{id}', [ComplaintController::class, 'update']);    // Update a complaint
     Route::delete('/delete/{id}', [ComplaintController::class, 'destroy']); // Delete a complaint
+});
+
+Route::prefix('skills')->middleware(['auth:api'])->group(function () {
+    Route::post('/create', [SkillController::class, 'store']);        // Create a skill
+    Route::get('/view/{id}', [SkillController::class, 'show']);      // View a specific skill
+    Route::put('/update/{id}', [SkillController::class, 'update']);    // Update a skill
+    Route::delete('/delete/{id}', [SkillController::class, 'destroy']); // Delete a skill
+});
+
+Route::prefix('user/skills')->middleware(['auth:api'])->group(function () {
+    Route::get('/view', [UserSkillController::class, 'index']);         // View user skills
+    Route::post('/add', [UserSkillController::class, 'store']);        // Add a skill to user
+    Route::delete('/delete/{skillId}', [UserSkillController::class, 'destroy']); // Remove a skill from user
+});
+
+Route::prefix('user/portofolios')->middleware(['auth:api'])->group(function () {
+    Route::get('/view', [PortofolioController::class, 'index']);          // View all portfolio items
+    Route::post('/create', [PortofolioController::class, 'store']);         // Create a new portfolio item
+    Route::get('/view/{id}', [PortofolioController::class, 'show']);      // View a specific portfolio item
+    Route::put('/update/{id}', [PortofolioController::class, 'update']);    // Update a portfolio item
+    Route::delete('/delete/{id}', [PortofolioController::class, 'destroy']); // Delete a portfolio item
+});
+
+Route::middleware(['auth:api'])->group(function () {
+    Route::get('/buyer', [BuyerController::class, 'show']);            // View buyer profile
+    Route::post('/buyer', [BuyerController::class, 'store']);          // Create buyer profile
+    Route::put('/buyer', [BuyerController::class, 'update']);          // Update buyer profile
+    Route::delete('/buyer', [BuyerController::class, 'destroy']);      // Delete buyer profile
 });
