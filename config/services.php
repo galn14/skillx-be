@@ -39,6 +39,11 @@ return [
     'client_id' => env('GOOGLE_CLIENT_ID'),
     'client_secret' => env('GOOGLE_CLIENT_SECRET'),
     'redirect' => env('GOOGLE_REDIRECT_URI'),
-],
+    ],
 
+    // config/services.php
+    'firebase' => [
+        'credentials' => env('FIREBASE_CREDENTIALS'),
+        'database_url' => env('FIREBASE_DATABASE_URL'), // Add this line
+    ],
 ];

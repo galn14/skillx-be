@@ -18,6 +18,8 @@ use App\Http\Controllers\Api\KeranjangController;
 use App\Http\Controllers\Api\UserSkillController;
 use App\Http\Controllers\Api\PortofolioController;
 use App\Http\Controllers\Api\TransactionController;
+use App\Http\Controllers\Api\TestController;
+use App\Http\Controllers\Api\GoogleLoginController;
 
 
 /**
@@ -172,3 +174,6 @@ Route::middleware('auth:api')->prefix('messages')->group(function () {
     Route::post('/send', [MessageController::class, 'store']); // Mengirim pesan
     Route::delete('/{id}', [MessageController::class, 'destroy']); // Menghapus pesan
 });
+
+Route::get('/firebase/test', [TestController::class, 'testFirebase']);
+Route::post('/google-login', [GoogleLoginController::class, 'googleLogin']);
