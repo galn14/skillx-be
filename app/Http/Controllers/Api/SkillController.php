@@ -108,4 +108,12 @@ class SkillController extends Controller
             'message' => 'Skill deleted successfully'
         ], 200);
     }
+    public function fetchSkills()
+    {
+        // Fetch all skills from the database
+        $skills = Skill::all();
+        
+        // Return skills data as JSON response
+        return response()->json($skills);
+    }
 }

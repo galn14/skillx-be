@@ -95,6 +95,7 @@ Route::prefix('complaints')->middleware(['auth:api'])->group(function () {
 });
 
 Route::prefix('skills')->middleware(['auth:api'])->group(function () {
+    Route::get('/skills/fetch', [SkillController::class, 'fetchSkills']);
     Route::post('/create', [SkillController::class, 'store']);        // Create a skill
     Route::get('/view/{id}', [SkillController::class, 'show']);      // View a specific skill
     Route::put('/update/{id}', [SkillController::class, 'update']);    // Update a skill
